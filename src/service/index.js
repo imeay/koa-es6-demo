@@ -5,18 +5,31 @@ export default {
     }
   },
   * index() {
+    let data = {
+      name : 'chenxiaochi',
+      nickname : 'bendan',
+      age : '26'
+    };
     this.body = {
-        name : 'chenxiaochi',
-        nickname : 'bendan',
-        age : '26'
+        data,
+        code :0,
+        msg : ''
     }
   },
   * info() {
-    const {nickname,age} = this.request.body;
-    console.log(nickname);
-    this.body = {
+    const {nickname,age,hobbys} = this.request.body;
+    let deal_hobbys = hobbys.map((hobby)=>{
+      return `js:${hobby}`
+    })
+    let data = {
       nickname,
-      age
+      age,
+      hobbys : deal_hobbys
+    };
+    this.body = {
+      data,
+      code : 0,
+      msg : ''
     }
   }
 }
