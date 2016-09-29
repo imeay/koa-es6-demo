@@ -28,8 +28,6 @@ export default {
     yield weixin.get_access_token(code).then(({openid,access_token})=>{
       console.log(openid,access_token);
       //access_token openid 也写死了，正常需要由微信的接口返回
-      access_token = 'b2YRsTaQcslsq2qJkG9u77kTSyj0_yV4YC1wr28h5d5oGXCvuajoK1-jfWA4SPP_19KhBRNmV8nBXGn3kDtCvlrue2FM9u3oIzO3VWYlJDQ'
-      openid = 'oY67Iv4KAyxbN4dvQKwiZzZdnfpE'
       return weixin.getUserInfo({openid,access_token}).then((data)=>{
         this.body = {
           data : data
