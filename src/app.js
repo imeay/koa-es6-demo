@@ -9,9 +9,8 @@ import indexRouter from './router/index';
 import wxRouter from './router/wx';
 let app = koa();
 const router = Router();
-let v = path.resolve(__dirname,'../views')
-app.use(views('views', {
-  root:v,
+app.use(views(path.resolve(__dirname,'../views'), {
+  root:path.resolve(__dirname,'../views'),
   default: 'ejs'
 }));
 app.use(bodyparser());
