@@ -8,31 +8,31 @@ import {address} from '../util/common';
 import co from 'co';
 export default {
   * index(){
+    var that = this;
     let url = address(this.request);
-    yield weixin.get_sapi_ticket().then((ticket)=>{
-      let ret = sign(ticket,url);
-      console.log(ticket);
-      return co(function*(){
-        yield this.render('index',{
-          ret:ret
-        })
-      }.bind(this));
-    }).catch((error)=>{
-      console.log(error)
-      this.body = error;
-    });
+    let ticket = yield weixin.get_sapi_ticket();
+    let ret = sign(ticket,url);
+    yield this.render('index',{
+      ret:ret
+    })
   },
-  * userInfo() {
+  * userInfo(next) {
     let code = this.request.query.code;
-    // code = '021FSyMA17SZ210EB5QA13bEMA1FSyMg'; // code我写死了，正常需要从参数获取
-    yield weixin.get_access_token(code).then(({openid,access_token})=>{
+    const {openid,access_token,errcode,errmsg} = yield weixin.get_access_token(code);
+    if(!errcode){
+       this.throw({code:errcode,msg:errmsg});
+    }else{
       console.log(openid,access_token);
-      //access_token openid 也写死了，正常需要由微信的接口返回
-      return weixin.getUserInfo({openid,access_token}).then((data)=>{
-        this.body = {
-          data : data
+      const data = yield weixin.getUserInfo({openid,access_token});
+      if(data.errcode){
+        this.throw({code:data.errcode,msg:data.errmsg});
+      }else{
+        yield this.body = {
+          data : data,
+          code : 0,
+          msg : ''
         }
-      });
-    });
+      }
+    }
   }
 }
