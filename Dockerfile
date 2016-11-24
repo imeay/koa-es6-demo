@@ -8,4 +8,4 @@ COPY package.json /usr/src/app/
 Run npm install
 
 COPY . /usr/src/app
-ENTRYPOINT ['node','./lib/app.js']
+CMD ['node','./lib/app.js']
