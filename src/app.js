@@ -35,8 +35,9 @@ app
 router.use('/index',indexRouter.routes(), indexRouter.allowedMethods());
 router.use('/wx',wxRouter.routes(),wxRouter.allowedMethods());
 
-const server = app.listen(3000,()=>{
-  console.log("listent:3000");
+let port = process.env.PORT || 8888;
+const server = app.listen(port, () => {
+  console.log(`listent:${port}`);
 });
 
 module.exports = server;
