@@ -47,12 +47,12 @@
     "supertest": "^1.2.0"
   },
   "scripts": {
-    "dev": "make dev",
-    "start": "make start",
-    "build": "make build",
-    "lint": "make lint",
-    "test": "make test",
-    "install": "make install"
+    "dev": "sudo make dev",
+    "start": "sudo make start",
+    "build": "sudo make build",
+    "lint": "sudo make lint",
+    "test": "sudo make test",
+    "install": "sudo make install"
   },
   "author": "",
   "license": "ISC"
