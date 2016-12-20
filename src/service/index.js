@@ -1,5 +1,9 @@
+import logger from '../util/logger';
+import Debug from 'debug';
+let debug = Debug('index')
 export default {
   * version() {
+    logger.model('version');
     this.body = {
       version : '1.0.0'
     }
@@ -10,6 +14,7 @@ export default {
       nickname : 'bendan',
       age : '26'
     };
+    debug(data);
     this.body = {
         data,
         code :0,

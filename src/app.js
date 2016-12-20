@@ -5,10 +5,14 @@ import Router from 'koa-router';
 import json from 'koa-json';
 import bodyparser from 'koa-body';
 import views from 'koa-views';
+import co from 'co';
+import fs from 'fs';
+import scheme from 'koa-scheme';
 import indexRouter from './router/index';
 import wxRouter from './router/wx';
 let app = koa();
 const router = Router();
+// app.use(scheme(__dirname + '/scheme.js', {debug: true}));
 app.use(function* (next) {
   try {
     yield* next;
@@ -27,10 +31,10 @@ app.use(views(path.resolve(__dirname,'../views'), {
 app.use(bodyparser());
 app.use(json());
 
+
 app
   .use(router.routes())
   .use(router.allowedMethods());
-
 
 router.use('/index',indexRouter.routes(), indexRouter.allowedMethods());
 router.use('/wx',wxRouter.routes(),wxRouter.allowedMethods());
